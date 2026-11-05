@@ -1,0 +1,14 @@
+@import "tailwindcss";
+@source "./";
+
+:host {
+  all: initial !important;
+  display: block !important;
+}
+
+.daisy-root {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    color: #1a1a1a;
+    line-height: 1.5;
+    font-size: 16px;
+}
