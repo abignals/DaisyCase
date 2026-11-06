@@ -1,6 +1,7 @@
 import { createRoot } from 'react-dom/client';
 import styles from './styles.css?inline';
 import { App } from './App';
+import './config';
 
 function mount() {
     const anchor = document.getElementById('daisy-booking');
