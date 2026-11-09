@@ -2,6 +2,7 @@ import { createRoot } from 'react-dom/client';
 import styles from './styles.css?inline';
 import { App } from './App';
 import './config';
+import { ErrorBoundary } from './errorBoundary';
 
 function mount() {
     const anchor = document.getElementById('daisy-booking');
@@ -22,7 +23,11 @@ function mount() {
     container.className = 'daisy-root';
     shadow.append(style, container);
 
-    createRoot(container).render(<App studioKey={studioKey} />);
+    createRoot(container).render(
+        <ErrorBoundary>
+          <App studioKey={studioKey} />
+        </ErrorBoundary>,
+      );
 }
 
 if (document.readyState === 'loading') {
