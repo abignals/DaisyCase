@@ -6,7 +6,7 @@ export type Studio = {
     timezone: string;
     currency: string;
     branding: { primary_color: string; logo_url: string | null};
-    booking_policy: { requires_phone: boolean; cancellation_hours: number; max_seat_per_booking: number};
+    booking_policy: { requires_phone: boolean; cancellation_hours: number; max_seats_per_booking: number};
 };
 
 export type Course = {
@@ -76,7 +76,7 @@ export const api = {
 
     async createBooking(payload: BookingRequest): Promise<BookingResponse> {
         try {
-            return await request <BookingResponse>(url('bookings'), {
+            return await request <BookingResponse>(url('/bookings'), {
                 method: 'POST',
                 headers: { 'Content-type': 'application/json' },
                 body: JSON.stringify(payload),
