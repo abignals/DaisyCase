@@ -3,8 +3,18 @@ export const studio = {
   name: 'Atelier Terre & Feu',
   timezone: 'Europe/Paris',
   currency: 'EUR',
-  branding: { primary_color: '#C4643A', logo_url: null },
+  branding: {
+    primary_color: '#C4643A',
+    logo_url: null,
+    font: 'daisy' as 'daisy' | 'inherit',
+    radius: 'rounded' as 'square' | 'rounded' | 'pill',
+  },
   booking_policy: { requires_phone: true, cancellation_hours: 48, max_seats_per_booking: 4 },
+};
+
+export const demoThemes: Record<string, Partial<typeof studio.branding>> = {
+  pale: { primary_color: '#F5E663', font: 'inherit', radius: 'pill' },
+  dark: { primary_color: '#1F3A5F', font: 'daisy', radius: 'square' },
 };
 
 const NAMES = ['Tour de potier', 'Modelage à la main', 'Émaillage', 'Raku', 'Sculpture', 'Céramique pour enfants', 'Décor sur faïence'];

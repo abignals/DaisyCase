@@ -1,4 +1,4 @@
-import { useEffect, useState, type FormEvent } from 'react';
+import { useEffect, useState, type FormEvent, type ReactNode } from 'react';
 import { api, ApiError, type BookingResponse, type Course, type Slot, type Studio } from './api';
 import { formatDay, formatPrice, formatTime } from './format';
 
@@ -33,10 +33,12 @@ export function BookingForm({ course, slot, studio, draft, onDraftChange, onConf
 
   const set = <K extends keyof Draft>(key: K, value: Draft[K]) => onDraftChange({ ...draft, [key]: value });
 
+  // Si on change pour un créneau avec moins de places, on ajuste le nombre demandé
   useEffect(() => {
     if (draft.seats > maxSeats) set('seats', Math.max(1, maxSeats));
-  }, [maxSeats]);
+  }, [maxSeats]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  // Au-delà de 2 s d'attente, un message rassurant
   useEffect(() => {
     if (!submitting) { setSlow(false); return; }
     const t = setTimeout(() => setSlow(true), 2000);
@@ -57,7 +59,7 @@ export function BookingForm({ course, slot, studio, draft, onDraftChange, onConf
 
   async function submit(ev?: FormEvent) {
     ev?.preventDefault();
-    if (submitting || !validate()) return;
+    if (submitting || !validate()) return; // jamais deux envois en parallèle
     setProblem(null);
     setSubmitting(true);
     try {
@@ -137,7 +139,7 @@ export function BookingForm({ course, slot, studio, draft, onDraftChange, onConf
         type="submit"
         disabled={submitting}
         aria-busy={submitting}
-        className="w-full rounded-lg bg-[var(--daisy-primary)] px-4 py-3 font-medium text-white disabled:opacity-70"
+        className="w-full rounded-[var(--daisy-radius)] bg-[var(--daisy-primary)] px-4 py-3 font-medium text-[var(--daisy-on-primary)] disabled:opacity-70"
       >
         {submitting ? 'Réservation en cours…' : `Confirmer la réservation · ${total}`}
       </button>
@@ -151,7 +153,7 @@ export function BookingForm({ course, slot, studio, draft, onDraftChange, onConf
   );
 }
 
-function Field({ label, error, children }: { label: string; error?: string; children: React.ReactNode }) {
+function Field({ label, error, children }: { label: string; error?: string; children: ReactNode }) {
   return (
     <label className="block text-sm">
       <span className="mb-1 block font-medium">{label}</span>
@@ -161,7 +163,9 @@ function Field({ label, error, children }: { label: string; error?: string; chil
   );
 }
 
+// Traduit une erreur de l'API en situation compréhensible pour l'interface
 function toProblem(e: unknown): Problem {
+  if (e instanceof ApiError) console.warn('[Daisy] Réservation refusée :', e.status, e.code, e.body);
   if (!(e instanceof ApiError)) return { kind: 'uncertain' };
   switch (e.code) {
     case 'slot_full':
@@ -171,6 +175,7 @@ function toProblem(e: unknown): Problem {
     case 'phone_required': return { kind: 'invalid', message: "L'atelier demande un numéro de téléphone." };
     case 'too_many_seats': return { kind: 'invalid', message: 'Trop de places demandées pour une seule réservation.' };
     default:
+      // Coupure ou erreur serveur : on ne sait pas si la réservation a été enregistrée
       return e.status === 0 || e.status >= 500
         ? { kind: 'uncertain' }
         : { kind: 'invalid', message: "La réservation n'a pas pu être enregistrée. Vérifiez vos informations." };

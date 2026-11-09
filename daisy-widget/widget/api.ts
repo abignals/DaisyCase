@@ -5,7 +5,7 @@ export type Studio = {
     name: string;
     timezone: string;
     currency: string;
-    branding: { primary_color: string; logo_url: string | null};
+    branding: { primary_color: string; logo_url: string | null; font?: 'daisy' | 'inherit'; radius?: 'square' | 'rounded' | 'pill';};
     booking_policy: { requires_phone: boolean; cancellation_hours: number; max_seats_per_booking: number};
 };
 
@@ -47,14 +47,17 @@ export class ApiError extends Error {
     }
 }
 
-const scenario = new URLSearchParams(location.search).get('scenario');
+const demo = new URLSearchParams(location.search);
+const scenario = demo.get('scenario');
+const theme = demo.get('theme');
 
 function url(path: string, params: Record<string, string> = {}) {
-    const u = new URL(API_BASE + path);
+    const u = new URL(API_BASE + (path.startsWith('/') ? path : `/${path}`));
     for (const [k, v] of Object.entries(params)) u.searchParams.set(k, v);
     if (scenario) u.searchParams.set('scenario', scenario);
+    if (theme) u.searchParams.set('theme', theme);
     return u.toString();
-}
+  }
 
 async function request<T>(href: string, init?: RequestInit): Promise<T> {
     let res: Response;

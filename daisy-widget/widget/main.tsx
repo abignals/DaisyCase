@@ -12,6 +12,7 @@ function mount() {
     }
 
     const studioKey = anchor.dataset.studio ?? '';
+    const hostFont = getComputedStyle(anchor).fontFamily;
     const host = document.createElement('daisy-booking');
     anchor.appendChild(host);
 
@@ -25,7 +26,7 @@ function mount() {
 
     createRoot(container).render(
         <ErrorBoundary>
-          <App studioKey={studioKey} />
+          <App studioKey={studioKey} hostFont={hostFont} />
         </ErrorBoundary>,
       );
 }

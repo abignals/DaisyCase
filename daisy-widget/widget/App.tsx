@@ -6,12 +6,13 @@ import { SlotPicker } from './slotPicker';
 import { BookingForm, emptyDraft, type Draft } from './bookingForm';
 import { Confirmation } from './confirmation';
 import { LoadError } from './loadError';
+import { RADIUS, readableTextOn, safeColor } from './theme';
 
-export function App({ studioKey }: { studioKey: string }) {
+export function App({ studioKey, hostFont }: { studioKey: string; hostFont: string }) {
   const { state, retry } = useAsync(() => api.studio());
   const [course, setCourse] = useState<Course | null>(null);
   const [slot, setSlot] = useState<Slot | null>(null);
-  const [draft, setDraft] = useState<Draft>(emptyDraft);
+  const [draft, setDraft] = useState<Draft>(emptyDraft); // survit aux changements de créneau
   const [booking, setBooking] = useState<BookingResponse | null>(null);
 
   if (state.status === 'loading') {
@@ -20,7 +21,15 @@ export function App({ studioKey }: { studioKey: string }) {
   if (state.status === 'error') return <LoadError error={state.error} onRetry={retry} />;
 
   const studio = state.data;
-  const theme = { '--daisy-primary': studio.branding.primary_color } as CSSProperties;
+
+  const b = studio.branding;
+  const primary = safeColor(b.primary_color);
+  const theme = {
+    '--daisy-primary': primary,
+    '--daisy-on-primary': readableTextOn(primary),
+    '--daisy-radius': RADIUS[b.radius ?? 'rounded'],
+    fontFamily: b.font === 'inherit' && hostFont ? hostFont : undefined,
+  } as CSSProperties;
 
   function restart() {
     setCourse(null); setSlot(null); setBooking(null); setDraft(emptyDraft);

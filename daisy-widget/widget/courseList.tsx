@@ -33,7 +33,9 @@ export function CourseList({ currency, onSelect }: { currency: string; onSelect:
             onClick={() => setLevel(l)}
             aria-pressed={level === l}
             className={`rounded-full border px-3 py-1 text-sm ${
-              level === l ? 'border-[var(--daisy-primary)] bg-[var(--daisy-primary)] text-white' : 'border-gray-300'
+              level === l
+                ? 'border-[var(--daisy-primary)] bg-[var(--daisy-primary)] text-[var(--daisy-on-primary)]'
+                : 'border-gray-300'
             }`}
           >
             {l === 'all' ? 'Tous' : LEVELS[l]}
@@ -81,7 +83,7 @@ function CourseCard({ course, currency, onSelect }: { course: Course; currency: 
         )}
         <button
           onClick={onSelect}
-          className="mt-auto rounded-lg bg-[var(--daisy-primary)] px-4 py-2 font-medium text-white"
+          className="mt-auto rounded-[var(--daisy-radius)] bg-[var(--daisy-primary)] px-4 py-2 font-medium text-[var(--daisy-on-primary)]"
         >
           Choisir ce cours
         </button>
