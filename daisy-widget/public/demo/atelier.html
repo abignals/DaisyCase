@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Atelier Terre & Feu — Céramique à Paris</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root { --terre: #C4643A; --encre: #2B2420; --sable: #F6F0E8; }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Inter, system-ui, sans-serif; color: var(--encre); background: var(--sable); line-height: 1.6; }
+    h1, h2 { font-family: "Cormorant Garamond", serif; font-weight: 600; line-height: 1.15; }
+    a { color: inherit; }
+
+    header { display: flex; justify-content: space-between; align-items: center; padding: 20px 24px; max-width: 1100px; margin: 0 auto; }
+    .logo { font-family: "Cormorant Garamond", serif; font-size: 1.6rem; font-weight: 600; }
+    nav a { margin-left: 20px; text-decoration: none; font-size: .95rem; }
+
+    .hero { max-width: 1100px; margin: 0 auto; padding: 48px 24px 64px; display: grid; gap: 40px; align-items: center; }
+    .hero h1 { font-size: clamp(2.4rem, 6vw, 4rem); margin: 0 0 16px; }
+    .hero p { font-size: 1.1rem; max-width: 46ch; }
+    .hero img { width: 100%; aspect-ratio: 4/5; object-fit: cover; border-radius: 4px; }
+    .cta { display: inline-block; margin-top: 16px; padding: 12px 22px; background: var(--terre); color: #fff; text-decoration: none; border-radius: 2px; }
+    @media (min-width: 800px) { .hero { grid-template-columns: 1.1fr .9fr; } }
+
+    .about { background: #fff; padding: 64px 24px; }
+    .about > div { max-width: 1100px; margin: 0 auto; display: grid; gap: 32px; }
+    @media (min-width: 800px) { .about > div { grid-template-columns: repeat(3, 1fr); } }
+    .about h3 { font-family: "Cormorant Garamond", serif; font-size: 1.4rem; margin: 0 0 8px; }
+
+    .reserver { max-width: 1100px; margin: 0 auto; padding: 64px 24px; }
+    .reserver h2 { font-size: 2.4rem; margin: 0 0 8px; }
+    .reserver > p { margin: 0 0 32px; }
+
+    footer { padding: 32px 24px; text-align: center; font-size: .9rem; border-top: 1px solid #e3d9cc; }
+  </style>
+</head>
+<body>
+  <header>
+    <span class="logo">Terre & Feu</span>
+    <nav><a href="#atelier">L'atelier</a><a href="#reserver">Réserver</a></nav>
+  </header>
+
+  <section class="hero">
+    <div>
+      <h1>Façonnez la terre,<br>à votre rythme.</h1>
+      <p>Cours de tournage, de modelage et d'émaillage dans un atelier lumineux du 11e arrondissement. Débutants bienvenus.</p>
+      <a class="cta" href="#reserver">Voir les prochains cours</a>
+    </div>
+    <img src="https://picsum.photos/seed/atelier-hero/800/1000" alt="">
+  </section>
+
+  <section class="about" id="atelier">
+    <div>
+      <div><h3>Petits groupes</h3><p>Huit personnes au maximum, pour que chacun ait son tour et l'attention de l'enseignante.</p></div>
+      <div><h3>Tout est fourni</h3><p>Terre, outils, tabliers et cuissons. Venez simplement avec des vêtements qui ne craignent rien.</p></div>
+      <div><h3>Vos pièces chez vous</h3><p>Vos créations sont émaillées et cuites, puis prêtes à récupérer trois semaines plus tard.</p></div>
+    </div>
+  </section>
+
+  <section class="reserver" id="reserver">
+    <h2>Réserver un cours</h2>
+    <p>Choisissez votre cours et votre date, la confirmation arrive par e-mail.</p>
+
+    <!-- Les deux lignes que l'artisan a collées depuis Daisy -->
+    <div id="daisy-booking" data-studio="std_pk_7f2a9c"></div>
+    <script src="/v1.js" async></script>
+  </section>
+
+  <footer>Atelier Terre & Feu · Atelier fictif créé pour la démonstration du widget Daisy</footer>
+</body>
+</html>
