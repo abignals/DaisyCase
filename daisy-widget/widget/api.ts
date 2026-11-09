@@ -23,7 +23,7 @@ export type Slot = {
     slot_id: string;
     starts_at: string;
     seats_total: number;
-    seats_avaible: number;
+    seats_available: number;
     price_cents: number;
 };
 

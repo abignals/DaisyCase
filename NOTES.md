@@ -2,6 +2,8 @@
 - Lu les 3 sujets, penché d'abord vers le A (backend, proche de mon projet personnel).
 - Choisi le B suite au 1er entretien : l'équipe manque de profils front.
 - Lu daisy-api.md, prise en compte des requirements et de la realité du terrain : CORS/403, POST lent sans idempotence, fuseau horaire, prix variables, 320 px et traffic a 60% mobile.
+- Découverte de Vercel.
+- Observation des codes couleurs de Daisy pour realiser un widget fictif sur le theme du style actuel.
 
 ## Mercredi - Mise à niveau et choix d'architecture (~ 2h)
 - J'ai approfondi Shadow DOM vs iframe, CORS, Vercel.
@@ -14,6 +16,7 @@
 - Le prix : Les proprietes herites traversent l'isolation, le conteneur hote reste expose aux CSS du site, aucune isolation JS.
 - La parade : On peut contourner le probleme avec un ```:host { all: initial; } ``` a la racine et avec un script cree un element personnalise ```<daisy-booking>``` qui porte le Shadow DOM.
 - Pourquoi ne pas avoir chosi l'iframe : Isolation totale mais le CORS par domaine perd son sens et il faut piloter la hauteur du widget par ```postMessage``` ce qui est plus lourd.
+- Pas de Supabase ici, l'API est seulement simulée.
 
 ## Outils choisi
 - React + TypeScript + Tailwind pour le widget.
@@ -21,3 +24,11 @@
 - Next.js pour la page demo, les pages hotes de test er le faux serveur d'API (route handlers).
 - Vercel pour le deploiement.
 - Le widget embarque ses dépendances : il ne suppose rien de la page hôte.
+
+## Jeudi
+- Mise en ligne du projet sur Github et Vercel.
+- Creation basique du widget et isolation du CSS.
+- Page de test "clean" (page vierge) et une "hostile" avec CSS (```* {... important}, ``` boutons div stylises et police exotique et colonne de 320px) pour tester en condition non optimale  
+- Creation du faux serveur d'API mockant ```daisy-api.md``` avec prise en compte de la realité du terrain (latence, fuseau horaire, prix variable par creneau etc...) (test avec curl).
+- Client API en cours de mise en place.
+- Mise en place du CORS.
